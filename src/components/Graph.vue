@@ -1,53 +1,69 @@
 <template>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th v-for="label in labels" :key="label">
-                        {{ label }}
-                    </th>
-                    <th>
-                        prediction
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(input, index) in inputs" :key="index">
-                    <td v-for="label in labels" :key="label + index">
-                        {{ input[label] }}
-                    </td>
-                    <td :class="{ isCorrect: predictions[index] == inputs[index].growth }">
-                        {{ predictions[index] }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div id="evaluation">
-            Quality of prediction: {{ predictionQuality }}%
+    <div class="md-layout">
+        <div class="md-layout-item">
+            <md-card>
+                <md-card-header>
+                    <p class="md-title">Data</p>
+                </md-card-header>
+                <md-table>
+                    <md-table-row>
+                        <md-table-head v-for="label in labels" :key="label">
+                            {{ label }}
+                        </md-table-head>
+                        <md-table-head>
+                            prediction
+                        </md-table-head>
+                    </md-table-row>
+                    <md-table-row v-for="(input, index) in inputs" :key="index">
+                        <md-table-cell v-for="label in labels" :key="label + index">
+                            {{ input[label] }}
+                        </md-table-cell>
+                        <md-table-cell :class="{ isCorrect: predictions[index] == inputs[index].growth }">
+                            <em>{{ predictions[index] }}</em>
+                        </md-table-cell>
+                    </md-table-row>
+                </md-table>
+            </md-card>
         </div>
 
-        <div id="weights">
-            <div>
-                <label for="input_a">a</label>
-                <input type="range" min="-1" max="1" step="0.1" v-model="a">
-                {{ a }}
-            </div>
-            <div>
-                <label for="input_b">b</label>
-                <input type="range" min="-1" max="1" step="0.1" v-model="b">
-                {{ b }}
-            </div>
-            <div>
-                <label for="input_c">c</label>
-                <input type="range" min="-1" max="1" step="0.1" v-model="c">
-                {{ c }}
-            </div>
-            <div>
-                <label for="input_d">d</label>
-                <input type="range" min="-1" max="1" step="0.1" v-model="d">
-                {{ d }}
-            </div>
+        <div class="md-layout-item">
+
+            <md-card>
+                <md-card-header>
+                    <p class="md-title">Quality of prediction</p>
+                </md-card-header>
+                <md-card-content> 
+                    {{ predictionQuality }}%
+                </md-card-content>
+            </md-card>
+
+            <md-card>
+                <md-card-header>
+                    <p class="md-title">Weights</p>
+                </md-card-header>
+                <md-card-content> 
+                    <div>
+                        <label for="input_a">a</label>
+                        <input type="range" min="-1" max="1" step="0.1" v-model="a">
+                        {{ a }}
+                    </div>
+                    <div>
+                        <label for="input_b">b</label>
+                        <input type="range" min="-1" max="1" step="0.1" v-model="b">
+                        {{ b }}
+                    </div>
+                    <div>
+                        <label for="input_c">c</label>
+                        <input type="range" min="-1" max="1" step="0.1" v-model="c">
+                        {{ c }}
+                    </div>
+                    <div>
+                        <label for="input_d">d</label>
+                        <input type="range" min="-1" max="1" step="0.1" v-model="d">
+                        {{ d }}
+                    </div>
+                </md-card-content>
+            </md-card>
         </div>
     </div>
 </template>
